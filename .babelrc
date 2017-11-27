@@ -1,0 +1,28 @@
+{
+  "env": {
+    "development": {
+      "presets": [
+        [
+          "env",
+          {
+            "modules": false,
+            "useBuiltIns": "usage"
+          }
+        ],
+        "stage-3"
+      ]
+    },
+    "production": {
+      "presets": [
+        [
+          "env",
+          {
+            "modules": false,
+            "useBuiltIns": "usage"
+          }
+        ],
+        "stage-3"
+      ]
+    }
+  }
+}

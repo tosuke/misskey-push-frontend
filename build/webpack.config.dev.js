@@ -11,7 +11,7 @@ module.exports = merge(baseConfig, {
   devServer: {
     publicPath: '/',
     historyApiFallback: true,
-    open: true
+    open: false
   },
   plugins: [
     new Dotenv({

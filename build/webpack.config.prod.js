@@ -62,11 +62,6 @@ module.exports = merge(baseConfig, {
         )
       }
     }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'manifest',
-      filename: '[name].[hash].js',
-      minChunks: Infinity
-    }),
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, '../static'),

@@ -18,7 +18,7 @@ self.addEventListener('activate', event => {
 self.addEventListener('push', event => {
   const payload = event.data.json()
   console.log('[PUSH]', payload)
-  showNotification(payload).catch(e => console.error(e))
+  event.waitUntil(showNotification(payload))
 })
 
 self.addEventListener('notificationclick', event => {

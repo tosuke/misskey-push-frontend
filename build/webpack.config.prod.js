@@ -15,7 +15,8 @@ module.exports = merge(baseConfig, {
   plugins: [
     new Dotenv({
       path: path.join(__dirname, '../.env'),
-      safe: true
+      safe: true,
+      systemvars: true
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': `"${process.env.NODE_ENV || 'production'}"`

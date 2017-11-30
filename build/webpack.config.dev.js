@@ -17,7 +17,8 @@ module.exports = merge(baseConfig, {
   plugins: [
     new Dotenv({
       path: path.join(__dirname, '../.env'),
-      safe: true
+      safe: true,
+      systemvars: true
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',

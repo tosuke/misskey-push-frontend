@@ -1,20 +1,24 @@
 import axios from 'axios'
 
 export default async function subscribe (username, password) {
+  if (!Notification) {
+    throw new Error('cannot-use-webpush')
+  }
+
   const permissionState = await Notification.requestPermission()
   if (permissionState !== 'granted') {
     throw new Error('cannot-get-permission')
   }
 
   if (!navigator.serviceWorker) {
-    throw new Error('cannot-use-serviceworker')
+    throw new Error('cannot-use-webpush')
   }
 
   await navigator.serviceWorker.register('./sw.js')
   const reg = await navigator.serviceWorker.ready
 
   if (!reg.pushManager) {
-    throw new Error('cannot-use-push-api')
+    throw new Error('cannot-use-webpush')
   }
 
   const subscription = await reg.pushManager.subscribe({

@@ -1,5 +1,7 @@
 'use strict'
 const path = require('path')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const isProduction = process.env.NODE_ENV === 'production'
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -26,7 +28,11 @@ module.exports = {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader'
+        loader: 'vue-loader',
+        options: {
+          extractCSS: isProduction,
+          cssSourceMap: true
+        }
       },
       {
         test: /\.js$/,
@@ -35,13 +41,18 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['vue-style-loader', 'css-loader']
+        use: isProduction
+          ? ExtractTextPlugin.extract({
+            use: 'css-loader',
+            fallback: 'vue-style-loader'
+          })
+          : ['vue-style-loader', 'css-loader']
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {
-          limit: 1024,
+          limit: 2048,
           name: 'img/[name].[hash:7].[ext]'
         }
       },
@@ -49,7 +60,7 @@ module.exports = {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
         loader: 'url-loader',
         options: {
-          limit: 1024,
+          limit: 2048,
           name: 'media/[name].[hash:7].[ext]'
         }
       },
@@ -57,7 +68,7 @@ module.exports = {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url-loader',
         options: {
-          limit: 1024,
+          limit: 2048,
           name: 'fonts/[name].[hash:7].[ext]'
         }
       }

@@ -26,7 +26,7 @@ module.exports = merge(baseConfig, {
       parallel: true
     }),
     new ExtractTextPlugin({
-      filename: 'css/[name].[contenthash].css',
+      filename: '[name].[contenthash].css',
       allChunks: false
     }),
     new OptimizeCSSPlugin({

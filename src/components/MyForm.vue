@@ -15,7 +15,7 @@
         <el-input type="password" v-model="form.password"/>
       </el-form-item>
       <el-form-item>
-        <el-row type="flex" gutter="2">
+        <el-row type="flex" :gutter="2">
           <el-col>
             <el-button type="primary" :loading="!subscribed && loading" :disabled="subscribed" @click="doSubscribe()">
               購読する
@@ -116,7 +116,7 @@ export default {
           break
         default:
           this.error = {
-            title: '処理に失敗しました。',
+            title: '処理に失敗しました。'+name,
             description: ''
           }
           break

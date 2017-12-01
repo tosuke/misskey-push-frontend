@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export default async function subscribe (username, password) {
-  if (!Notification) {
+  if (!window.Notification) {
     throw new Error('cannot-use-webpush')
   }
 

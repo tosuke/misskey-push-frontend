@@ -7,8 +7,9 @@ const Dotenv = require('dotenv-webpack')
 const UglifyEsPlugin = require('uglifyjs-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const PreloadWebpackPlugin = require('preload-webpack-plugin')
 
 module.exports = merge(baseConfig, {
   devtool: 'source-map',
@@ -47,6 +48,11 @@ module.exports = merge(baseConfig, {
         collapseWhitespace: true,
         removeAttributeQuotes: true
       }
+    }),
+    new PreloadWebpackPlugin({
+      rel: 'preload',
+      include: 'all',
+      fileBlacklist: [/^sw/, /\.map$/]
     }),
     new webpack.HashedModuleIdsPlugin(),
     new webpack.optimize.ModuleConcatenationPlugin(),

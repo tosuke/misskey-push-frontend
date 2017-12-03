@@ -48,8 +48,12 @@ self.addEventListener('fetch', event =>
       }
 
       if (event.preloadResponse) {
-        const res = await event.preloadResponse
-        if (res) return event.respondWith(res)
+        event.respondWith(
+          event.preloadResponse.then(res => {
+            if (res) return res
+            return fetch(event.request)
+          })
+        )
       }
     })()
   )

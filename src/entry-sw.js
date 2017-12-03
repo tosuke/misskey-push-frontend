@@ -30,21 +30,27 @@ self.addEventListener('notificationclick', event => {
   }
 })
 
-self.addEventListener('fetch', async event => {
-  const path = new URL(event.request.url).pathname
-  if (path.startsWith('/forward/')) {
-    const redirectUrl = decodeURIComponent(/^\/forward\/(.*)$/.exec(path)[1])
-    event.respondWith(
-      new Response('', {
-        status: 301,
-        headers: { location: encodeURI(redirectUrl) }
-      })
-    )
-    return
-  }
+self.addEventListener('fetch', event =>
+  event.waitUntil(
+    (async () => {
+      const path = new URL(event.request.url).pathname
+      if (path.startsWith('/forward/')) {
+        const redirectUrl = decodeURIComponent(
+          /^\/forward\/(.*)$/.exec(path)[1]
+        )
+        event.respondWith(
+          new Response('', {
+            status: 301,
+            headers: { location: encodeURI(redirectUrl) }
+          })
+        )
+        return
+      }
 
-  if (event.preloadResponse) {
-    const res = await event.preloadResponse
-    if (res) return event.respondWith(res)
-  }
-})
+      if (event.preloadResponse) {
+        const res = await event.preloadResponse
+        if (res) return event.respondWith(res)
+      }
+    })()
+  )
+)

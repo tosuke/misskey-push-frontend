@@ -44,16 +44,6 @@ self.addEventListener('fetch', event =>
             headers: { location: encodeURI(redirectUrl) }
           })
         )
-        return
-      }
-
-      if (event.preloadResponse) {
-        event.respondWith(
-          event.preloadResponse.then(res => {
-            if (res) return res
-            return fetch(event.request)
-          })
-        )
       }
     })()
   )
